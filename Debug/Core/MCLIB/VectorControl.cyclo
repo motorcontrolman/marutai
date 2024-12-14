@@ -1,0 +1,16 @@
+VectorControl.c:40:6:VectorControlTasks	1
+VectorControl.c:61:6:OpenLoopTasks	1
+VectorControl.c:82:6:InitVectorControl	1
+VectorControl.c:88:20:uvw2ab	1
+VectorControl.c:94:20:ab2uvw	1
+VectorControl.c:100:20:ab2dq	1
+VectorControl.c:109:21:calcAmpFromVect	1
+VectorControl.c:118:21:calcModFromVamp	1
+VectorControl.c:125:20:calcAmpPhaseModFromVoltVect	1
+VectorControl.c:131:20:limitVoltVectAmp	2
+VectorControl.c:145:20:dq2ab	1
+VectorControl.c:154:20:Vuvw2Duty	5
+VectorControl.c:209:20:CurrentFbControl	1
+VectorControl.c:237:20:calcVdqFeedForword	1
+VectorControl.c:243:21:FluxObserver	1
+VectorControl.c:252:6:calcElectAngleEstimate	2

@@ -1,0 +1,16 @@
+../Core/MCLIB/VectorControl.c:40:6:VectorControlTasks	56	static
+../Core/MCLIB/VectorControl.c:61:6:OpenLoopTasks	64	static
+../Core/MCLIB/VectorControl.c:82:6:InitVectorControl	56	static
+../Core/MCLIB/VectorControl.c:88:20:uvw2ab	16	static
+../Core/MCLIB/VectorControl.c:94:20:ab2uvw	16	static
+../Core/MCLIB/VectorControl.c:100:20:ab2dq	32	static
+../Core/MCLIB/VectorControl.c:109:21:calcAmpFromVect	24	static
+../Core/MCLIB/VectorControl.c:118:21:calcModFromVamp	24	static
+../Core/MCLIB/VectorControl.c:125:20:calcAmpPhaseModFromVoltVect	8	static
+../Core/MCLIB/VectorControl.c:131:20:limitVoltVectAmp	16	static
+../Core/MCLIB/VectorControl.c:145:20:dq2ab	32	static
+../Core/MCLIB/VectorControl.c:154:20:Vuvw2Duty	48	static
+../Core/MCLIB/VectorControl.c:209:20:CurrentFbControl	80	static
+../Core/MCLIB/VectorControl.c:237:20:calcVdqFeedForword	8	static
+../Core/MCLIB/VectorControl.c:243:21:FluxObserver	40	static
+../Core/MCLIB/VectorControl.c:252:6:calcElectAngleEstimate	40	static

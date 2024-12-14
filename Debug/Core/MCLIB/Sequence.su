@@ -1,0 +1,7 @@
+../Core/MCLIB/Sequence.c:39:6:Sequence_Low_Freq	72	static
+../Core/MCLIB/Sequence.c:88:6:Sequence_High_Freq	80	static
+../Core/MCLIB/Sequence.c:110:13:slctPosMode	16	static
+../Core/MCLIB/Sequence.c:127:13:slctDrvMode	16	static
+../Core/MCLIB/Sequence.c:175:20:slctElectAngleFromPosMode	168	static
+../Core/MCLIB/Sequence.c:221:13:slctCntlFromDrvMode	80	static
+../Core/MCLIB/Sequence.c:256:20:calcCurrentRef	16	static
