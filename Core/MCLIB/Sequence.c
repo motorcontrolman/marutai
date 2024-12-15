@@ -60,14 +60,14 @@ void Sequence_Low_Freq(void){
 
 		// Get Current Sensor Offset
 		if( sInitCnt <= INITCNTST1){
-			sSensData.Iuvw_AD_Offset[0] = 0.0f;
-			sSensData.Iuvw_AD_Offset[1] = 0.0f;
-			sSensData.Iuvw_AD_Offset[2] = 0.0f;
+			sSensData.Iuvw_AD_Offset[0] = 2002.0f;
+			sSensData.Iuvw_AD_Offset[1] = 1996.0f;
+			sSensData.Iuvw_AD_Offset[2] = 2012.0f;
 		}
 		else if(sInitCnt <= INITCNTST1 + INITCNTST2){
-			sSensData.Iuvw_AD_Offset[0] += (float)sSensData.Iuvw_AD[0] * ONEDIVINITCNTST2;
-			sSensData.Iuvw_AD_Offset[1] += (float)sSensData.Iuvw_AD[1] * ONEDIVINITCNTST2;
-			sSensData.Iuvw_AD_Offset[2] += (float)sSensData.Iuvw_AD[2] * ONEDIVINITCNTST2;
+			//sSensData.Iuvw_AD_Offset[0] += (float)sSensData.Iuvw_AD[0] * ONEDIVINITCNTST2;
+			//sSensData.Iuvw_AD_Offset[1] += (float)sSensData.Iuvw_AD[1] * ONEDIVINITCNTST2;
+			//sSensData.Iuvw_AD_Offset[2] += (float)sSensData.Iuvw_AD[2] * ONEDIVINITCNTST2;
 		}
 	}
 	else {
@@ -94,7 +94,7 @@ void Sequence_High_Freq(void){
 	// for debug
 	sPosMode = POSMODE_FREERUN;
 	sDrvMode = DRVMODE_OPENLOOP;
-	sElectAngVeloRefRateLimit = 300;
+	sElectAngVeloRefRateLimit = 62.8;
 
 
 	slctElectAngleFromPosMode(sPosMode, &sSensData);
@@ -242,7 +242,7 @@ void inline slctCntlFromDrvMode(uint8_t drvMode, struct SensorData sensData, str
 			gOffDuty(Duty, outputMode);
 			break;
 		case DRVMODE_OPENLOOP:
-			VamRef = sSensData.Vdc * SQRT3DIV2_DIV2 * 0.05f * gButton1;//gVolume;
+			VamRef = sSensData.Vdc * SQRT3DIV2_DIV2 * 0.1f * gButton1;//gVolume;
 			OpenLoopTasks(VamRef, sensData, vectorControlData, Duty, outputMode);
 			break;
 		case DRVMODE_VECTORCONTROL:

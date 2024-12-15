@@ -1,4 +1,4 @@
-Sequence.c:39:6:Sequence_Low_Freq	6
+Sequence.c:39:6:Sequence_Low_Freq	5
 Sequence.c:88:6:Sequence_High_Freq	1
 Sequence.c:110:13:slctPosMode	5
 Sequence.c:127:13:slctDrvMode	5
