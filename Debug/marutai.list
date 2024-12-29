@@ -1481,7 +1481,7 @@ void readHallSignal(uint8_t* Hall){
 	Hall[1] = HAL_GPIO_ReadPin(GPIOB, H2_Pin);
  8000cfc:	687b      	ldr	r3, [r7, #4]
  8000cfe:	1c5c      	adds	r4, r3, #1
- 8000d00:	2102      	movs	r1, #2
+ 8000d00:	2108      	movs	r1, #8
  8000d02:	4809      	ldr	r0, [pc, #36]	; (8000d28 <readHallSignal+0x48>)
  8000d04:	f004 fd6a 	bl	80057dc <HAL_GPIO_ReadPin>
  8000d08:	4603      	mov	r3, r0
@@ -4900,35 +4900,35 @@ void HAL_TIM_IC_MspInit(TIM_HandleTypeDef* htim_ic)
  8002702:	613b      	str	r3, [r7, #16]
  8002704:	693b      	ldr	r3, [r7, #16]
 
-    __HAL_RCC_GPIOA_CLK_ENABLE();
+    __HAL_RCC_GPIOB_CLK_ENABLE();
  8002706:	4b1f      	ldr	r3, [pc, #124]	; (8002784 <HAL_TIM_IC_MspInit+0xb8>)
  8002708:	6cdb      	ldr	r3, [r3, #76]	; 0x4c
  800270a:	4a1e      	ldr	r2, [pc, #120]	; (8002784 <HAL_TIM_IC_MspInit+0xb8>)
- 800270c:	f043 0301 	orr.w	r3, r3, #1
+ 800270c:	f043 0302 	orr.w	r3, r3, #2
  8002710:	64d3      	str	r3, [r2, #76]	; 0x4c
  8002712:	4b1c      	ldr	r3, [pc, #112]	; (8002784 <HAL_TIM_IC_MspInit+0xb8>)
  8002714:	6cdb      	ldr	r3, [r3, #76]	; 0x4c
- 8002716:	f003 0301 	and.w	r3, r3, #1
+ 8002716:	f003 0302 	and.w	r3, r3, #2
  800271a:	60fb      	str	r3, [r7, #12]
  800271c:	68fb      	ldr	r3, [r7, #12]
-    __HAL_RCC_GPIOB_CLK_ENABLE();
+    __HAL_RCC_GPIOA_CLK_ENABLE();
  800271e:	4b19      	ldr	r3, [pc, #100]	; (8002784 <HAL_TIM_IC_MspInit+0xb8>)
  8002720:	6cdb      	ldr	r3, [r3, #76]	; 0x4c
  8002722:	4a18      	ldr	r2, [pc, #96]	; (8002784 <HAL_TIM_IC_MspInit+0xb8>)
- 8002724:	f043 0302 	orr.w	r3, r3, #2
+ 8002724:	f043 0301 	orr.w	r3, r3, #1
  8002728:	64d3      	str	r3, [r2, #76]	; 0x4c
  800272a:	4b16      	ldr	r3, [pc, #88]	; (8002784 <HAL_TIM_IC_MspInit+0xb8>)
  800272c:	6cdb      	ldr	r3, [r3, #76]	; 0x4c
- 800272e:	f003 0302 	and.w	r3, r3, #2
+ 800272e:	f003 0301 	and.w	r3, r3, #1
  8002732:	60bb      	str	r3, [r7, #8]
  8002734:	68bb      	ldr	r3, [r7, #8]
     /**TIM2 GPIO Configuration
-    PA1     ------> TIM2_CH2
     PB10     ------> TIM2_CH3
     PA15     ------> TIM2_CH1
+    PB3     ------> TIM2_CH2
     */
-    GPIO_InitStruct.Pin = H2_Pin|H1_Pin;
- 8002736:	f248 0302 	movw	r3, #32770	; 0x8002
+    GPIO_InitStruct.Pin = H3_Pin|H2_Pin;
+ 8002736:	f44f 6381 	mov.w	r3, #1032	; 0x408
  800273a:	617b      	str	r3, [r7, #20]
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
  800273c:	2302      	movs	r3, #2
@@ -4942,31 +4942,31 @@ void HAL_TIM_IC_MspInit(TIM_HandleTypeDef* htim_ic)
     GPIO_InitStruct.Alternate = GPIO_AF1_TIM2;
  8002748:	2301      	movs	r3, #1
  800274a:	627b      	str	r3, [r7, #36]	; 0x24
-    HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+    HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
  800274c:	f107 0314 	add.w	r3, r7, #20
  8002750:	4619      	mov	r1, r3
- 8002752:	f04f 4090 	mov.w	r0, #1207959552	; 0x48000000
- 8002756:	f002 febf 	bl	80054d8 <HAL_GPIO_Init>
+ 8002752:	480d      	ldr	r0, [pc, #52]	; (8002788 <HAL_TIM_IC_MspInit+0xbc>)
+ 8002754:	f002 fec0 	bl	80054d8 <HAL_GPIO_Init>
 
-    GPIO_InitStruct.Pin = H3_Pin;
- 800275a:	f44f 6380 	mov.w	r3, #1024	; 0x400
- 800275e:	617b      	str	r3, [r7, #20]
+    GPIO_InitStruct.Pin = H1_Pin;
+ 8002758:	f44f 4300 	mov.w	r3, #32768	; 0x8000
+ 800275c:	617b      	str	r3, [r7, #20]
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
- 8002760:	2302      	movs	r3, #2
- 8002762:	61bb      	str	r3, [r7, #24]
+ 800275e:	2302      	movs	r3, #2
+ 8002760:	61bb      	str	r3, [r7, #24]
     GPIO_InitStruct.Pull = GPIO_NOPULL;
- 8002764:	2300      	movs	r3, #0
- 8002766:	61fb      	str	r3, [r7, #28]
+ 8002762:	2300      	movs	r3, #0
+ 8002764:	61fb      	str	r3, [r7, #28]
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
- 8002768:	2300      	movs	r3, #0
- 800276a:	623b      	str	r3, [r7, #32]
+ 8002766:	2300      	movs	r3, #0
+ 8002768:	623b      	str	r3, [r7, #32]
     GPIO_InitStruct.Alternate = GPIO_AF1_TIM2;
- 800276c:	2301      	movs	r3, #1
- 800276e:	627b      	str	r3, [r7, #36]	; 0x24
-    HAL_GPIO_Init(H3_GPIO_Port, &GPIO_InitStruct);
- 8002770:	f107 0314 	add.w	r3, r7, #20
- 8002774:	4619      	mov	r1, r3
- 8002776:	4804      	ldr	r0, [pc, #16]	; (8002788 <HAL_TIM_IC_MspInit+0xbc>)
+ 800276a:	2301      	movs	r3, #1
+ 800276c:	627b      	str	r3, [r7, #36]	; 0x24
+    HAL_GPIO_Init(H1_GPIO_Port, &GPIO_InitStruct);
+ 800276e:	f107 0314 	add.w	r3, r7, #20
+ 8002772:	4619      	mov	r1, r3
+ 8002774:	f04f 4090 	mov.w	r0, #1207959552	; 0x48000000
  8002778:	f002 feae 	bl	80054d8 <HAL_GPIO_Init>
   /* USER CODE BEGIN TIM2_MspInit 1 */
 

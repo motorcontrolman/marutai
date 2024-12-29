@@ -59,8 +59,6 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define H2_Pin GPIO_PIN_1
-#define H2_GPIO_Port GPIOA
 #define H3_Pin GPIO_PIN_10
 #define H3_GPIO_Port GPIOB
 #define LD3_Pin GPIO_PIN_13
@@ -77,6 +75,8 @@ void Error_Handler(void);
 #define EN2_GPIO_Port GPIOC
 #define EN3_Pin GPIO_PIN_12
 #define EN3_GPIO_Port GPIOC
+#define H2_Pin GPIO_PIN_3
+#define H2_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
 
