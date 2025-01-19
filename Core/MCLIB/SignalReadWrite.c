@@ -14,8 +14,14 @@
 #include "GeneralFunctions.h"
 
 static uint16_t sNoInputCaptureCnt = 0;
-static uint32_t sInputCaptureCnt;
-static uint32_t sInputCaptureCnt_pre;
+static uint32_t sHallInputCaptureCnt;
+static uint32_t sHallInputCaptureCnt_pre;
+static uint16_t sPropoInputCaptureCntRise;
+static uint16_t sPropoInputCaptureCntFall;
+static uint8_t sPropoState;
+static uint8_t sPropoState_pre;
+static float sPropoDuty = 0;
+float propoInputCaptureCntDiff;
 
 
 uint16_t Bemf_AD[3];
@@ -28,7 +34,7 @@ uint8_t readButton1(void){
 	return B1;
 }
 
-uint32_t readInputCaptureCnt(void){
+uint32_t readHallInputCaptureCnt(void){
 	// Read Input Capture Count of GPIO
 	// CCR1:TIM2 Channel1 = H1, CCR2:Channel2 = H2, CCR3:Channel3 = H3
 	volatile uint32_t inputCaptureCnt;
@@ -36,6 +42,59 @@ uint32_t readInputCaptureCnt(void){
 	inputCaptureCnt = TIM2 -> CCR1;
 
 	return inputCaptureCnt;
+}
+
+uint16_t readPropoInputCaptureCnt(void){
+	// Read Input Capture Count of GPIO
+	// CCR2:TIM3 Channel2 = Propo
+	volatile uint16_t inputCaptureCnt;
+
+	inputCaptureCnt = TIM3 -> CCR2;
+
+	return inputCaptureCnt;
+}
+
+float readPropoDuty(void){
+	float propoDuty;
+
+
+
+	uint32_t inputCaptureCntMax;
+	uint32_t inputCaptureCntHalf;
+	float preScaler;
+
+	sPropoState_pre = sPropoState;
+	sPropoState = HAL_GPIO_ReadPin(GPIOC, Propo_Pin) & 0b00000001;
+
+	if(sPropoState) // sPropoState = ON
+		sPropoInputCaptureCntRise = readPropoInputCaptureCnt();
+	else			// sPropoState = OFF
+	{
+		sPropoInputCaptureCntFall = readPropoInputCaptureCnt();
+
+		// Detect Falling Edge, Update propoDuty
+		if(sPropoState == 0 && sPropoState_pre == 1)
+		{
+
+			inputCaptureCntMax = TIM3 -> ARR;
+			inputCaptureCntHalf = (inputCaptureCntMax + 1) >> 1;
+			preScaler = (float)(TIM3 -> PSC);
+
+			propoInputCaptureCntDiff = (float)sPropoInputCaptureCntFall - (float)sPropoInputCaptureCntRise;
+
+			if( propoInputCaptureCntDiff < - (float)inputCaptureCntHalf)
+				propoInputCaptureCntDiff += (float)inputCaptureCntMax;
+
+			// Default 1489 Max 1857 Min 1119 Ampritude:370
+			sPropoDuty = (propoInputCaptureCntDiff - 1489.0f) * 0.0027f;
+			if(sPropoDuty < 0.0f) sPropoDuty = 0.0f;
+
+		}
+	}
+
+	propoDuty = sPropoDuty;
+	return propoDuty;
+
 }
 
 float readTimeInterval(uint32_t inputCaptureCnt, uint32_t inputCaptureCnt_pre){
@@ -92,23 +151,23 @@ void readCurrent(uint16_t* Iuvw_AD, float* Iuvw_AD_Offset, float* Iuvw){
 
 void readHallSignal(uint8_t* Hall){
 	//Hall[0] = u, Hall[1] = v, Hall[2] = w
-	Hall[0] = HAL_GPIO_ReadPin(H1_GPIO_Port, H1_Pin);
-	Hall[1] = HAL_GPIO_ReadPin(GPIOB, H2_Pin);
-	Hall[2] = HAL_GPIO_ReadPin(GPIOB, H3_Pin);
+
+	Hall[0] = ~HAL_GPIO_ReadPin(H1_GPIO_Port, H1_Pin) & 0b00000001;
+	Hall[1] = ~HAL_GPIO_ReadPin(GPIOB, H2_Pin) & 0b00000001;
+	Hall[2] = ~HAL_GPIO_ReadPin(GPIOB, H3_Pin) & 0b00000001;
 }
 
 void readElectFreqFromHallSignal(float* electFreq){
+
 	float timeInterval;
 
-	// Hold & Read Input Capture Count
-	sInputCaptureCnt_pre = sInputCaptureCnt;
-	sInputCaptureCnt = readInputCaptureCnt();
+	sHallInputCaptureCnt_pre = sHallInputCaptureCnt;
+	sHallInputCaptureCnt = readHallInputCaptureCnt();
 
 	// Calculate Electrical Freq From Input Capture Count
-	if(sInputCaptureCnt != sInputCaptureCnt_pre){
-		timeInterval = readTimeInterval(sInputCaptureCnt, sInputCaptureCnt_pre);
-		if( timeInterval > 0.0001f)
-			*electFreq = gfDivideAvoidZero(1.0f, timeInterval, SYSTEMCLOCKCYCLE);
+	if(sHallInputCaptureCnt != sHallInputCaptureCnt_pre){
+		timeInterval = readTimeInterval(sHallInputCaptureCnt, sHallInputCaptureCnt_pre);
+		*electFreq = gfDivideAvoidZero(1.0f, timeInterval, 0.0001f);
 
 		sNoInputCaptureCnt = 0;
 	}

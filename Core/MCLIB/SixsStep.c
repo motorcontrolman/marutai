@@ -122,6 +122,7 @@ void calcElectAngle(uint8_t* hall, float electFreq, uint8_t flgPLL, float* elect
 		sElectAngleEstimate += sElectAngVeloEstimate * CARRIERCYCLE;
 		sElectAngleEstimate = gfWrapTheta(sElectAngleEstimate);
 
+		// Change Hall Signal, Update sElectAngVeloEstimate
 		if( sElectAngleActual != sElectAngleActual_pre){
 			sElectAngleErr = sElectAngleActual - sElectAngleEstimate;
 

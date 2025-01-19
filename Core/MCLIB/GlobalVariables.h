@@ -14,6 +14,7 @@
 // Global Variables
 extern uint16_t gAdcValue[2];
 extern uint8_t gHall[3];
+extern uint8_t gHall_pre[3];
 extern uint8_t gButton1;
 extern uint32_t gTIMCounter;
 extern uint32_t gTIMCounter_pre;
@@ -27,6 +28,7 @@ extern uint32_t gTheta_DAC;
 extern float gVdc;
 extern float gTwoDivVdc;
 extern float gVolume;
+extern float gPropoDuty;
 extern float gIuvw[3];
 extern uint16_t gIuvw_AD[3];
 extern float gIuvw2[3];

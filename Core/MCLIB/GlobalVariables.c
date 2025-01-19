@@ -12,6 +12,7 @@
 
 uint16_t gAdcValue[2];
 uint8_t gHall[3];
+uint8_t gHall_pre[3];
 uint8_t gButton1;
 uint32_t gTIMCounter;
 uint32_t gTIMCounter_pre;
@@ -23,6 +24,7 @@ uint32_t gTheta_DAC;
 float gVdc;
 float gTwoDivVdc;
 float gVolume;
+float gPropoDuty;
 float gIuvw[3];
 uint16_t gIuvw_AD[3];
 float gIuvw2[3];

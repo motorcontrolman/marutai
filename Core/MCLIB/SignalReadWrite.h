@@ -18,7 +18,7 @@
 #define IV2_ADOffSET			1967
 #define IW2_ADOffSET			1974
 //#define AD2CURRENT			-0.00193586253f // for IHM07M1
-#define AD2CURRENT			-0.014767822f // for DRV8302 tekito
+#define AD2CURRENT			0.085625f // for marutai tekito
 //#define AD2CURRENT			-0.358844273 // for CQKIT
 #define AD2VOLTAGE			0.0154305f; // for IHM07M1 1/(9.31/(9.31+169)*4096/3.3V)
 //#define AD2VOLTAGE			0.025210084f; // for CQKIT
@@ -26,8 +26,11 @@
 
 // Global Functions
 uint8_t readButton1(void);
-uint32_t readInputCaptureCnt(void);
+uint32_t readHallInputCaptureCnt(void);
+uint16_t readPropoInputCaptureCnt(void);
+
 float readTimeInterval(uint32_t inputCaptureCnt, uint32_t inputCaptureCnt_pre);
+float readPropoDuty(void);
 float readVolume(void);
 float readVdc(void);
 void readCurrent(uint16_t* Iuvw_AD, float* Iuvw_AD_Offset, float* Iuvw);
