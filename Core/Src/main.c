@@ -77,43 +77,6 @@ int Is_First_Captured = 0;
 */
 
 
-/*
-void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef * htim)
-{
-if(htim -> Channel == HAL_TIM_ACTIVE_CHANNEL_2)
-  {
-    if(Is_First_Captured == 0)
-    {
-    IC_Val1 = HAL_TIM_ReadCapturedValue(htim , TIM_CHANNEL_2); //read first value
-    Is_First_Captured = 1;
-    //Change the polarity to falling edge
-    __HAL_TIM_SET_CAPTUREPOLARITY(htim,TIM_CHANNEL_2,TIM_INPUTCHANNELPOLARITY_FALLING);
-    }
-
-  else if (Is_First_Captured ==1)
-  {
-    IC_Val2 = HAL_TIM_ReadCapturedValue(htim,TIM_CHANNEL_2);
-    __HAL_TIM_SET_COUNTER(htim,0);
-
-    if(IC_Val2 > IC_Val1)
-    {
-      Difference = IC_Val2-IC_Val1;
-      gPropoDuty = (0.000379 * Difference) - 2.9;
-
-      if(gPropoDuty > -0.06f && gPropoDuty < 0.06f){
-        gPropoDuty = 0;
-      }
-    }
-
-
-
-    Is_First_Captured = 0;
-    __HAL_TIM_SET_CAPTUREPOLARITY(htim,TIM_CHANNEL_2,TIM_INPUTCHANNELPOLARITY_RISING);
-  }
- }
-}
-*/
-
 /* USER CODE END 0 */
 
 /**
@@ -154,12 +117,21 @@ int main(void)
   HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin, GPIO_PIN_SET);
   HAL_GPIO_WritePin(EN2_GPIO_Port, EN2_Pin, GPIO_PIN_SET);
   HAL_GPIO_WritePin(EN3_GPIO_Port, EN3_Pin, GPIO_PIN_SET);
+
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
   HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_1);
+  //HAL_GPIO_WritePin(CH1_GPIO_Port, CH1_Pin, GPIO_PIN_RESET);
+  //HAL_GPIO_WritePin(CH1N_GPIO_Port, CH1N_Pin, GPIO_PIN_RESET);
+
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);
   HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_2);
+  //HAL_GPIO_WritePin(CH2_GPIO_Port, CH2_Pin, GPIO_PIN_RESET);
+  //HAL_GPIO_WritePin(CH2N_GPIO_Port, CH2N_Pin, GPIO_PIN_RESET);
+
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);
   HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_3);
+  //HAL_GPIO_WritePin(CH3_GPIO_Port, CH3_Pin, GPIO_PIN_RESET);
+  //HAL_GPIO_WritePin(CH3N_GPIO_Port, CH3N_Pin, GPIO_PIN_RESET);
 
   // Set Duty Output Delay to Constant
   // https://digitalservo.jp/blogs/posts/2022/12/stm32-pwm-setting/
@@ -430,7 +402,7 @@ static void MX_TIM1_Init(void)
   sBreakDeadTimeConfig.OffStateRunMode = TIM_OSSR_DISABLE;
   sBreakDeadTimeConfig.OffStateIDLEMode = TIM_OSSI_DISABLE;
   sBreakDeadTimeConfig.LockLevel = TIM_LOCKLEVEL_OFF;
-  sBreakDeadTimeConfig.DeadTime = 0;
+  sBreakDeadTimeConfig.DeadTime = 200;
   sBreakDeadTimeConfig.BreakState = TIM_BREAK_DISABLE;
   sBreakDeadTimeConfig.BreakPolarity = TIM_BREAKPOLARITY_HIGH;
   sBreakDeadTimeConfig.BreakFilter = 0;

@@ -46,7 +46,7 @@ void Sequence_Low_Freq(void){
 	gButton1 = readButton1();
 	gVolume = 0; //readVolume();
 	gPropoDuty = readPropoDuty();
-
+	//gPropoDuty = 0.2;
 	readHallSignal(gHall);
 	readElectFreqFromHallSignal(&gElectFreq);
 
@@ -95,9 +95,9 @@ void Sequence_High_Freq(void){
 	readCurrent(sSensData.Iuvw_AD, sSensData.Iuvw_AD_Offset, sSensData.Iuvw);
 
 	// for debug
-	sPosMode = POSMODE_HALL;
+	sPosMode = POSMODE_HALL;//POSMODE_FREERUN;//
 	sDrvMode = DRVMODE_OPENLOOP;
-	sElectAngVeloRefRateLimit = TWOPI * 10.0f;
+	sElectAngVeloRefRateLimit = TWOPI * 30.0f;
 
 
 	slctElectAngleFromPosMode(sPosMode, &sSensData);

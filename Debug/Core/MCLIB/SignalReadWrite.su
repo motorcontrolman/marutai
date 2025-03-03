@@ -10,5 +10,5 @@
 ../Core/MCLIB/SignalReadWrite.c:160:6:readElectFreqFromHallSignal	24	static
 ../Core/MCLIB/SignalReadWrite.c:192:6:writeOutputMode	16	static
 ../Core/MCLIB/SignalReadWrite.c:211:6:writeDuty	16	static
-../Core/MCLIB/SignalReadWrite.c:218:6:writeFreeRunCnt	16	static
-../Core/MCLIB/SignalReadWrite.c:222:10:readFreeRunCnt	16	static
+../Core/MCLIB/SignalReadWrite.c:219:6:writeFreeRunCnt	16	static
+../Core/MCLIB/SignalReadWrite.c:223:10:readFreeRunCnt	16	static

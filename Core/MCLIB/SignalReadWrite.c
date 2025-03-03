@@ -213,6 +213,7 @@ void writeDuty(float* Duty){
 	TIM1 -> CCR1 = Duty[0] * (TIM1 -> ARR);
 	TIM1 -> CCR2 = Duty[1] * (TIM1 -> ARR);
 	TIM1 -> CCR3 = Duty[2] * (TIM1 -> ARR);
+
 }
 
 void writeFreeRunCnt(uint16_t Cnt){
