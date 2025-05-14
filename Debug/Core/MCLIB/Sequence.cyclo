@@ -1,7 +1,7 @@
 Sequence.c:39:6:Sequence_Low_Freq	5
-Sequence.c:91:6:Sequence_High_Freq	1
-Sequence.c:113:13:slctPosMode	5
-Sequence.c:130:13:slctDrvMode	5
-Sequence.c:178:20:slctElectAngleFromPosMode	6
-Sequence.c:226:13:slctCntlFromDrvMode	5
-Sequence.c:263:20:calcCurrentRef	5
+Sequence.c:89:6:Sequence_High_Freq	1
+Sequence.c:111:13:slctPosMode	5
+Sequence.c:128:13:slctDrvMode	5
+Sequence.c:176:20:slctElectAngleFromPosMode	6
+Sequence.c:224:13:slctCntlFromDrvMode	5
+Sequence.c:261:20:calcCurrentRef	5

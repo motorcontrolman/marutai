@@ -44,9 +44,7 @@ void Sequence_Low_Freq(void){
 
 	//read IO signals
 	gButton1 = readButton1();
-	gVolume = 0; //readVolume();
 	gPropoDuty = readPropoDuty();
-	//gPropoDuty = 0.2;
 	readHallSignal(gHall);
 	readElectFreqFromHallSignal(&gElectFreq);
 
@@ -62,9 +60,9 @@ void Sequence_Low_Freq(void){
 
 		// Get Current Sensor Offset
 		if( sInitCnt <= INITCNTST1){
-			sSensData.Iuvw_AD_Offset[0] = 2011.0f;
-			sSensData.Iuvw_AD_Offset[1] = 1995.0f;
-			sSensData.Iuvw_AD_Offset[2] = 2000.0f;
+			sSensData.Iuvw_AD_Offset[0] = 1997.0f;
+			sSensData.Iuvw_AD_Offset[1] = 1992.0f;
+			sSensData.Iuvw_AD_Offset[2] = 1990.0f;
 		}
 		else if(sInitCnt <= INITCNTST1 + INITCNTST2){
 			//sSensData.Iuvw_AD_Offset[0] += (float)sSensData.Iuvw_AD[0] * ONEDIVINITCNTST2;
@@ -95,9 +93,9 @@ void Sequence_High_Freq(void){
 	readCurrent(sSensData.Iuvw_AD, sSensData.Iuvw_AD_Offset, sSensData.Iuvw);
 
 	// for debug
-	sPosMode = POSMODE_HALL;//POSMODE_FREERUN;//
-	sDrvMode = DRVMODE_OPENLOOP;
-	sElectAngVeloRefRateLimit = TWOPI * 30.0f;
+	//sPosMode = POSMODE_HALL;////
+	//sDrvMode = DRVMODE_OPENLOOP;
+	sElectAngVeloRefRateLimit = TWOPI * 15.0f;
 
 
 	slctElectAngleFromPosMode(sPosMode, &sSensData);
@@ -207,7 +205,7 @@ static inline void slctElectAngleFromPosMode(uint8_t posMode, struct SensorData 
 	case POSMODE_HALL_PLL:
 		flgPLL = 1;
 		calcElectAngle(gHall, gElectFreq, flgPLL, &electAngle, &electAngVelo);
-		sensData->electAngle = electAngle;
+		sensData->electAngle = electAngle - PIDIV6;
 		sensData->electAngVelo = electAngVelo;
 		break;
 	case POSMODE_SENSORLESS:
@@ -230,7 +228,7 @@ void inline slctCntlFromDrvMode(uint8_t drvMode, struct SensorData sensData, str
 	float ModErr;
 
 	vectorControlData->Idq_ref[0] = 0.0f;
-	vectorControlData->Idq_ref[1] = 3.0f;//IQREFMAX * gVolume;
+	vectorControlData->Idq_ref[1] = IQREFMAX * gPropoDuty;
 	vectorControlData->Idq_ref_LPF[0] = vectorControlData->Idq_ref[0];
 	vectorControlData->Idq_ref_LPF[1] = vectorControlData->Idq_ref[1];//IQREFMAX * gVolume;
 

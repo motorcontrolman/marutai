@@ -69,7 +69,7 @@ void OpenLoopTasks(float VamRef, struct SensorData sensData, struct VectorContro
 	gLPF(vectorControlData->Idq[1], ANGULARFREQ20Hz, CARRIERCYCLE, &vectorControlData->Idq_LPF[1]);
 
 	vectorControlData->Vdq[0] = 0.0f;
-	vectorControlData->Vdq[1] = VamRef;
+	vectorControlData->Vdq[1] = VamRef;//0.0f;
 
 
 	calcAmpPhaseModFromVoltVect(sensData, vectorControlData);

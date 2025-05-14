@@ -86,8 +86,8 @@ float readPropoDuty(void){
 				propoInputCaptureCntDiff += (float)inputCaptureCntMax;
 
 			// Default 1489 Max 1857 Min 1119 Ampritude:370
-			sPropoDuty = (propoInputCaptureCntDiff - 1489.0f) * 0.0027f;
-			if(sPropoDuty < 0.0f) sPropoDuty = 0.0f;
+			sPropoDuty = (propoInputCaptureCntDiff - 1499.0f) * 0.0027f;
+			//if(sPropoDuty < 0.0f) sPropoDuty = 0.0f;
 
 		}
 	}
@@ -155,6 +155,7 @@ void readHallSignal(uint8_t* Hall){
 	Hall[0] = ~HAL_GPIO_ReadPin(H1_GPIO_Port, H1_Pin) & 0b00000001;
 	Hall[1] = ~HAL_GPIO_ReadPin(GPIOB, H2_Pin) & 0b00000001;
 	Hall[2] = ~HAL_GPIO_ReadPin(GPIOB, H3_Pin) & 0b00000001;
+
 }
 
 void readElectFreqFromHallSignal(float* electFreq){
@@ -213,6 +214,9 @@ void writeDuty(float* Duty){
 	TIM1 -> CCR1 = Duty[0] * (TIM1 -> ARR);
 	TIM1 -> CCR2 = Duty[1] * (TIM1 -> ARR);
 	TIM1 -> CCR3 = Duty[2] * (TIM1 -> ARR);
+	//TIM1 -> CCR1 = 0.55f * (TIM1 -> ARR);
+	//TIM1 -> CCR2 = 0.5f * (TIM1 -> ARR);
+	//TIM1 -> CCR3 = 0.5f * (TIM1 -> ARR);
 
 }
 

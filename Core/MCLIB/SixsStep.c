@@ -87,11 +87,11 @@ void calcElectAngle(uint8_t* hall, float electFreq, uint8_t flgPLL, float* elect
 	float Ts_PLL;
 
 	// Calculate PLL Gain based on Electrical Angle Velocity
-	wc_PLL = sElectAngVeloEstimate * 0.5f;
+	wc_PLL = sElectAngVeloEstimate * 0.25f;
 	wc_PLL = gUpperLowerLimit(wc_PLL, 500.0f, 0.0f);
-	Ts_PLL = 1.0f / (sElectAngVeloEstimate * ONEDIVTWOPI * 6.0f);
+	//Ts_PLL = 1.0f / (sElectAngVeloEstimate * ONEDIVTWOPI * 6.0f);
 	Kp_PLL = wc_PLL;
-	Ki_PLL = 0.2f * wc_PLL * wc_PLL * Ts_PLL;
+	Ki_PLL = 0.2f * wc_PLL * wc_PLL * CARRIERCYCLE;//Ts_PLL;
 
 
 	// Hold & Calculate Voltage Mode Based on Hall Signals
@@ -123,7 +123,7 @@ void calcElectAngle(uint8_t* hall, float electFreq, uint8_t flgPLL, float* elect
 		sElectAngleEstimate = gfWrapTheta(sElectAngleEstimate);
 
 		// Change Hall Signal, Update sElectAngVeloEstimate
-		if( sElectAngleActual != sElectAngleActual_pre){
+		//if( sElectAngleActual != sElectAngleActual_pre){
 			sElectAngleErr = sElectAngleActual - sElectAngleEstimate;
 
 			// wrap Electrical Angle Err
@@ -131,7 +131,7 @@ void calcElectAngle(uint8_t* hall, float electFreq, uint8_t flgPLL, float* elect
 
 			//PLL
 			sElectAngVeloEstimate = cfPhaseLockedLoop(sElectAngleErr, Kp_PLL, Ki_PLL, &sIntegral_ElectAngleErr_Ki);
-		}
+		//}
 	}
 	else{
 		sElectAngleEstimate = sElectAngleActual;
